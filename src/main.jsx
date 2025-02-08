@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext"; 
+import { AuthProvider } from "./context/AuthContext"; // ✅ Importiamo il contesto
 import BuilderPage from "./builder-page";
 import Catalogo from "./pages/Catalogo";
 import Checkout from "./pages/Checkout";
@@ -11,29 +11,27 @@ import ProtectedRoute from "./routes/ProtectedRoute"; // ✅ Importiamo il Prote
 import "./styles/index.css";
 import "./builder-registry"; // ✅ Import corretto per registrare i componenti in Builder.io
 
-
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthProvider>
-      <BrowserRouter>
+    <BrowserRouter> {/* BrowserRouter deve essere sopra tutto */}
+      <AuthProvider> {/* Avvolgi l'intera app con AuthProvider */}
         <Routes>
           {/* Pagine gestite da Builder.io */}
-          <Route path="/*" element={<BuilderPage />} /> 
+          <Route path="/*" element={<BuilderPage />} />
 
           {/* Pagine gestite da React */}
           <Route path="/catalogo" element={<Catalogo />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/login" element={<Login />} />
-          
+
           {/* 🔒 Protezione della Dashboard */}
           <Route path="/dashboard" element={
-            <ProtectedRoute>
+            <ProtectedRoute> {/* Protegge la Dashboard */}
               <Dashboard />
             </ProtectedRoute>
           } />
         </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );

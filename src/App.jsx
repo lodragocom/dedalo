@@ -2,7 +2,6 @@ import Navbar from "./components/Navbar"; // ✅ Giusto
 import Footer from "./components/Footer";
 import "./styles/index.css"; // Stili unificati per tutto il sito
 
-
 function App() {
   return (
     <div className="app-container">

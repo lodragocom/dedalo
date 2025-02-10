@@ -1,16 +1,16 @@
-// src/routes/ProtectedRoute.jsx
-
+import React from "react";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext"; // Importa il contesto di autenticazione
+import { useAuth } from "../context/AuthContext";
 
-export default function ProtectedRoute({ children }) {
-  const { user } = useAuth(); // Ottieni l'utente dal contesto
-
+const ProtectedRoute = ({ children }) => {
+  const { user } = useAuth();
+  
   if (!user) {
-    // Se non c'è un utente, redirigi alla pagina di login
+    // Se l'utente non è loggato, reindirizza alla pagina di login
     return <Navigate to="/login" />;
   }
 
-  // Se l'utente è autenticato, mostra il contenuto protetto
   return children;
-}
+};
+
+export default ProtectedRoute;

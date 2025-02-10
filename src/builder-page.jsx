@@ -2,6 +2,7 @@ import { BuilderComponent, builder } from "@builder.io/react";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
+import "./styles/builder.css";
 
 builder.init(import.meta.env.VITE_PUBLIC_BUILDER_KEY);
 
@@ -9,7 +10,7 @@ export default function BuilderPage() {
   const [content, setContent] = useState(null);
   const { page } = useParams();
   const navigate = useNavigate();
-  const { user, signInWithGoogle, logout } = useAuth();
+  const { user, logout } = useAuth(); // Ho rimosso 'signInWithGoogle' dato che non serve
 
   useEffect(() => {
     document.getElementById("root").classList.add("builder-root");
@@ -42,16 +43,13 @@ export default function BuilderPage() {
         <div>
           <p>Ciao, {user.displayName}</p>
           <img src={user.photoURL} alt={user.displayName} />
-          <button onClick={logout}>Logout</button>
+          <button onClick={logout}>Logout</button> {/* Mantieni solo il bottone logout */}
         </div>
       ) : (
         <div>
-          <p>Non sei loggato</p>
-          <button onClick={signInWithGoogle}>Accedi con Google</button>
+           {/* Solo il messaggio se non loggato */}
         </div>
       )}
-
-      <button onClick={() => navigate("/")}>Torna alla Home</button>
 
       <BuilderComponent model="page" content={content} />
     </div>
